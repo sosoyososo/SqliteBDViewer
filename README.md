@@ -1,4 +1,14 @@
 SqliteBDViewer
 ==============
 
-Look up database created by sqlite 
+一个简单的查看sqlite数据库的应用。
+
+适用与Mac OS , 在10.9.2下测试通过
+
+同时支持手动输入路径，通过Finder打开，直接拖拽文件三种打开方式。
+
+手动输入路径需要点击open后打开数据库。数据库打开后会自动加载所有表，选择某个表后下面显示表内内容。
+
+打开数据库之后可以执行sql语句。
+
+后台适用FMDataBase进行支持
