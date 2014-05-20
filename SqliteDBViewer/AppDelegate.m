@@ -150,29 +150,28 @@
 - (void)resetResultTable {
     if (self.result && self.resultKey) {
         
-        NSArray *tableColumns = [self.resultTable tableColumns];
-        NSUInteger tableColumnNum = tableColumns.count;
+        NSUInteger tableColumnNum = [self.resultTable tableColumns].count;
         NSUInteger columnNum = [self.resultKey count];
         
         if (columnNum < tableColumnNum) {
-            int i = 0;
-            for (NSTableColumn *column in tableColumns) {
+            for (int i = 0; i < tableColumnNum; i ++) {
                 if (i >= columnNum) {
-                    [self.resultTable removeTableColumn:column];
+                    [self.resultTable removeTableColumn:[self.resultTable.tableColumns lastObject]];
                 } else {
-                    [column setIdentifier:self.resultKey[i]];
-                    [column.headerCell setPlaceholderString:self.resultKey[i]];
+                    [self.resultTable.tableColumns[i] setIdentifier:self.resultKey[i]];
+                    [[self.resultTable.tableColumns[i] headerCell] setTitle:self.resultKey[i]];
                 }
                 i ++;
             }
         } else if (columnNum >= tableColumnNum){
             for (int i = 0; i < columnNum; i ++) {
-                NSTableColumn *column = i < tableColumnNum ? tableColumns[i] : nil;
+                NSTableColumn *column = i < tableColumnNum ? self.resultTable.tableColumns[i] : nil;
                 if (!column) {
                     column = [[NSTableColumn alloc] init];
+                    [self.resultTable addTableColumn:column];
                 }
                 [column setIdentifier:self.resultKey[i]];
-                [column.headerCell setPlaceholderString:self.resultKey[i]];
+                [column.headerCell setTitle:self.resultKey[i]];
             }
         }
         
